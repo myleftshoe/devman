@@ -6,7 +6,10 @@ const apps = require('./apps')
 
 const app = polka();
 
-const { server } = app.use(sirv('public'));
+const { server } = app.use(sirv('public', { 
+    single: true,
+    ignores: ['/api/'],
+}));
 
 
 // let spawn = require('child_process').spawn;
@@ -124,6 +127,7 @@ app.get('/api/projects/:id', (req, res) => {
 })
 
 app.get('/api/apps', (req, res) => {
+    console.log('server: /ai/apps')
     res.end(JSON.stringify([...apps]))
 })
 

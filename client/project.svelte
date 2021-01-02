@@ -6,8 +6,11 @@
         return json;
     }
     async function fetchApps() {
+        console.log('fetchApps')
         const res = await fetch(`api/apps`);
+        console.log('fetched!')
         const json = await res.json()
+        console.log('json')
         const apps = json.map(([k, v]) => k)
         return apps;
     }
@@ -18,7 +21,7 @@
     fetchProject(pid).then((res) => console.log(res))
 </script>
 
-<h1>THIS IS THE APP</h1>
+<h1>THIS IS THE PROJECT</h1>
 <main>
     {#await fetchApps() then apps}
         {#each apps as aid, i}
