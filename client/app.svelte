@@ -2,10 +2,16 @@
     import Project from './project.svelte'
     import router from 'page'
     let page
+    let pid
     // router('/', () => page = Home)
-    router('/about', () => page = Project)
+    router('/project/:pid', 
+        (ctx, next) => { 
+            pid = ctx.params.pid
+            next()
+        }
+    )
 
     router.start() 
 </script>
-<svelte:component this={page} />
+<Project {pid}/>
 <h1>THIS IS THE APP</h1>
