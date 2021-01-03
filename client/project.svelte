@@ -6,20 +6,16 @@
         return json;
     }
     async function fetchApps() {
-        console.log('fetchApps')
         const res = await fetch(`../api/apps`);
-        console.log('fetched!')
         const json = await res.json()
-        console.log('json')
         const apps = json.map(([k, v]) => k)
         return apps;
     }
     function launchApp(appId) {
-        fetch(`api/launch/${appId}/${pid}`);
+        fetch(`../api/launch/${appId}/${pid}`);
     }
 
     fetchProject(pid).then((res) => console.log(res))
-    $: console.log(pid)
 </script>
 <h1>THIS IS THE PROJECT</h1>
 <main>
