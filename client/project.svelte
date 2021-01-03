@@ -1,18 +1,19 @@
 <script>
     export let pid = 'lab'
+    async function get(path) {
+        const res = await fetch(`../api/${path}`)
+        return res.json()
+    }
 	async function fetchProject(pid) {
-        const res = await fetch(`../api/projects/${pid}`);
-        const json = await res.json()
-        return json;
+        const project = await get(`projects/${pid}`)
+        return project
     }
     async function fetchApps() {
-        const res = await fetch(`../api/apps`);
-        const json = await res.json()
-        const apps = json.map(([k, v]) => k)
-        return apps;
+        const apps = await get(`apps`)
+        return apps.map(([k, v]) => k)
     }
     function launchApp(appId) {
-        fetch(`../api/launch/${appId}/${pid}`);
+        get(`launch/${appId}/${pid}`);
     }
 
     fetchProject(pid).then((res) => console.log(res))
