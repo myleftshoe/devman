@@ -7,4 +7,3 @@
         <Project pid={params.pid}/>
     </Route>
 </Router>
-<h1>THIS IS THE APP</h1>

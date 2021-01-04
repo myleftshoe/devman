@@ -16,25 +16,44 @@
         get(`launch/${appId}/${pid}`);
     }
 
-    fetchProject(pid).then((res) => console.log(res))
 </script>
-<h1>THIS IS THE PROJECT</h1>
-<main>
-    {#await fetchApps() then apps}
-        {#each apps as aid, i}
-            <button on:click={() => launchApp(aid)}><img src="../{aid}.png" alt="Submit"></button>
-        {/each}
-    {/await}
-</main>
+<page>
+    <header>
+        {#await fetchProject(pid) then project}
+            <h1>{project.id}</h1>
+            <h2>{project.path}</h2>
+        {/await}
+    </header>
+    <main>
+        {#await fetchApps() then apps}
+            {#each apps as aid, i}
+                <button on:click={() => launchApp(aid)}><img src="../{aid}.png" alt="Submit"></button>
+            {/each}
+        {/await}
+    </main>
+</page>
 
 <style>
+    page { 
+        height:100vh;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    header { 
+        text-align: center;
+    }
+    h1 { 
+        font-size: 64px;
+    }
     main {
         display:flex;
         justify-content: center;
-        gap:32px;
+        gap: 128px;
     }
     img {
-        height: 64px;
-        width: 64px;
+        height: 128px;
+        width: 128px;
     }
 </style>
