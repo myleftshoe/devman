@@ -38,6 +38,6 @@ const port = process.env.NODE_PORT || 4020
 
 app.listen(port, err => {
     if (err) throw err
-    console.log(`(server.js) listening on localhost:${port}`)
+    console.log(`(server.js) listening on http://localhost:${port}`)
 })
 
