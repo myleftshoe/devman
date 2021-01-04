@@ -2,8 +2,8 @@ const polka = require('polka')
 const sirv = require('sirv')
 const { spawn } = require('child_process')
 
-const apps = require('./apps')
-const projects = require('./projects')
+const apps = require('./data/apps')
+const projects = require('./data/projects')
 
 const app = polka();
 
