@@ -1,17 +1,12 @@
 <script>
+    import { Router, Route } from 'svelte-routing'
     import Project from './project.svelte'
-    import router from 'page'
-    let page
     let pid
-    // router('/', () => page = Home)
-    router('/project/:pid', 
-        (ctx, next) => { 
-            pid = ctx.params.pid
-            next()
-        }
-    )
-
-    router.start() 
+    export let url = ''
 </script>
-<Project {pid}/>
+<Router {url} basepath='/'>
+    <Route path='project/:pid' let:params>
+        <Project pid={params.pid}/>
+    </Route>
+</Router>
 <h1>THIS IS THE APP</h1>
