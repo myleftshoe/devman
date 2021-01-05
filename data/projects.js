@@ -15,6 +15,15 @@ const projects = new Map([
         }
     ],
     [
+        'pm',
+        {
+            id: 'pm',
+            path: fullPath('pm'),
+            git: 'https://github.com',
+            tags: ['gnome', 'gjs', 'web'],
+        }
+    ],
+    [
         'lab',
         {
             id: 'lab',

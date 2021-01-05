@@ -22,12 +22,19 @@
         {#await fetchProject(pid) then project}
             <h1>{project.id}</h1>
             <h2>{project.path}</h2>
+            <a href={project.remote}>{project.remote}</a>
+            <a href="https://github.com/myleftshoe/devman" title="Fork me on Github">
+                <img
+                src="https://img.shields.io/github/package-json/v/myleftshoe/devman?style=for-the-badge&logo=github&label=fork+me+on+github"
+                alt="version">
+            </a>            
+            
         {/await}
     </header>
     <main>
         {#await fetchApps() then apps}
             {#each apps as aid, i}
-                <button on:click={() => launchApp(aid)}><img src="../{aid}.png" alt="Submit"></button>
+                <button on:click={() => launchApp(aid)}><img class="appicon" src="../{aid}.png" alt="Submit"></button>
             {/each}
         {/await}
     </main>
@@ -52,8 +59,9 @@
         justify-content: center;
         gap: 128px;
     }
-    img {
+    .appicon {
         height: 128px;
         width: 128px;
     }
+
 </style>

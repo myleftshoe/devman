@@ -5,6 +5,8 @@ const { spawn } = require('child_process')
 const apps = require('./data/apps')
 const projects = require('./data/projects')
 
+const Git = require('./simplegit')
+
 const app = polka();
 
 app.use(sirv('public', { 
@@ -16,9 +18,11 @@ app.get('/api/projects', (req, res) => {
     res.end(JSON.stringify([...projects]))
 })
 
-app.get('/api/projects/:id', (req, res) => {
+app.get('/api/projects/:id', async (req, res) => {
     const { id } = req.params
     const project = projects.get(id)
+    const git = new Git(project.path)
+    project.remote = await git.remote
     res.end(JSON.stringify(project))
 })
 
