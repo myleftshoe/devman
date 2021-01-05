@@ -21,6 +21,7 @@
     "polka": "^0.5.2",
     "simple-git": "^2.31.0",
     "sirv-cli": "^1.0.10",
-    "svelte-routing": "^1.5.0"
+    "svelte-routing": "^1.5.0",
+    "zero-md": "^2.0.1"
   }
 }

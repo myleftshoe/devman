@@ -1,8 +1,13 @@
 const PROJECTS_DIR = '/home/paul/Development'
-
-function fullPath(leaf) {
-    return `${PROJECTS_DIR}/${leaf}/`
+function fullPath(folderName) {
+    return `${PROJECTS_DIR}/${folderName}/`
 }
+
+const GIT_PATH = 'https://github.com/myleftshoe'
+function fullGitPath(repoName) {
+    return `${GIT_PATH}/${repoName}/`
+}
+
 
 const projects = new Map([
     [
@@ -10,7 +15,7 @@ const projects = new Map([
         {
             id: 'vlctv',
             path: fullPath('vlctv'),
-            git: 'https://github.com',
+            git: fullGitPath('vlctv'),
             tags: ['gnome', 'gjs', 'web'],
         }
     ],
@@ -19,7 +24,7 @@ const projects = new Map([
         {
             id: 'pm',
             path: fullPath('pm'),
-            git: 'https://github.com',
+            git: fullGitPath('devman'),
             tags: ['gnome', 'gjs', 'web'],
         }
     ],
