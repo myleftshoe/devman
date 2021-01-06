@@ -1,4 +1,5 @@
 const simpleGit = require('simple-git');
+const { get } = require('./api')
 
 const git = simpleGit(undefined)
 
@@ -17,6 +18,11 @@ class Git {
     get remote() {
         return this.git.listRemote(['--get-url'])
     }
+    get languages() {
+        const languages = get('https://api.github.com/repos/myleftshoe/vlctv/languages')
+        return languages
+    }
+
 }
 
 module.exports = Git

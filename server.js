@@ -23,6 +23,7 @@ app.get('/api/projects/:id', async (req, res) => {
     const project = projects.get(id)
     const git = new Git(project.path)
     project.remote = await git.remote
+    project.languages = await git.languages
     res.end(JSON.stringify(project))
 })
 
@@ -44,4 +45,7 @@ app.listen(port, err => {
     if (err) throw err
     console.log(`(server.js) listening on http://localhost:${port}`)
 })
+
+
+
 

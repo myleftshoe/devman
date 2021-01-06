@@ -26,6 +26,14 @@
                     alt="version"
                 >
             </a> 
+            {#each Object.keys(project.languages) as lang}
+                <a href="{project.git}" title="Open me on Github">
+                    <img
+                        src="https://img.shields.io/static/v1?label={lang}&message={project.languages[lang]}&color=blue&logo=github"
+                        alt="version"
+                    >
+                </a>
+            {/each}
         </main>
         <footer>
             {#await fetchApps() then apps}
