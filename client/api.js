@@ -19,8 +19,8 @@ async function fetchApps() {
     const apps = await get(`apps`)
     return apps.map(([k, v]) => k)
 }
-function launchApp(appId) {
-    get(`launch/${appId}/${pid}`);
+function launchApp(pid, aid) {
+    get(`launch/${aid}/${pid}`);
 }
 
 

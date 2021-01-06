@@ -2,8 +2,8 @@
     import { fetchProject, fetchApps, launchApp } from './api'
     export let pid = 'lab'
 </script>
-<page>
-    {#await fetchProject(pid) then project}
+{#await fetchProject(pid) then project}
+    <page>
         <header>
             <h1>{project.id}</h1>
             <!-- <h2>{project.path}</h2> -->
@@ -12,6 +12,9 @@
                 src="https://img.shields.io/static/v1?label=myleftshoe&message=vlctv&color=blue&logo=github"
                 alt="version">
             </a>  -->
+        </header>
+        <!-- <a href={project.remote}>{project.remote}</a> -->
+        <main>
             <a href="{project.git}" title="Open me on Github">
                 <img alt="github stats" 
                     src="https://github-readme-stats.anuraghazra1.vercel.app/api/pin/?username=myleftshoe&amp;repo=vlctv&amp;theme=material-palenight"
@@ -23,25 +26,22 @@
                     alt="version"
                 >
             </a> 
-        </header>
-        <!-- <a href={project.remote}>{project.remote}</a> -->
-        <main>
+        </main>
+        <footer>
             {#await fetchApps() then apps}
                 {#each apps as aid, i}
-                    <button on:click={() => launchApp(aid)}><img class="appicon" src="../{aid}.png" alt="Submit"></button>
+                    <button on:click={() => launchApp(pid, aid)}><img class="appicon" src="../{aid}.png" alt="Submit"></button>
                 {/each}
             {/await}
-        </main>
-    {/await}
-</page>
+        </footer>
+    </page>    
+{/await}
 
 <style>
     page { 
-        height:100vh;
-        display:flex;
+        display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
+        height:100vh;
     }
     header { 
         display:flex;
@@ -53,9 +53,15 @@
         font-size: 128px;
     }
     main {
+        flex: 1;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    footer {
         display:flex;
         justify-content: center;
-        gap: 128px;
+        gap: 64px;
     }
     .appicon {
         height: 128px;

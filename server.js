@@ -35,7 +35,7 @@ app.get('/api/launch/:aid/:pid', (req, res) => {
     const { cmd, opts } = apps.get(aid)
     const { id, path, tags } = projects.get(pid)
     const child = spawn(cmd, [...opts, path])
-    res.end("launched")
+    res.end(JSON.stringify("launched"))
 })
 
 const port = process.env.NODE_PORT || 4020
