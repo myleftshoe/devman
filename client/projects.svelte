@@ -1,15 +1,5 @@
 <script>
-    async function get(path) {
-        const res = await fetch(`../api/${path}`)
-        return res.json()
-    }
-    async function fetchProjects() {
-        const projectsJson = await get(`projects`)
-        const projectsMap = new Map(projectsJson)
-        const projects = [...projectsMap.values()]
-        console.log(projects)
-        return projects
-    }
+    import { fetchProjects } from './api'
 </script>
 <main>
 {#await fetchProjects() then projects}

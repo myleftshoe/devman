@@ -1,21 +1,6 @@
 <script>
+    import { fetchProject, fetchApps, launchApp } from './api'
     export let pid = 'lab'
-    async function get(path) {
-        const res = await fetch(`../api/${path}`)
-        return res.json()
-    }
-	async function fetchProject(pid) {
-        const project = await get(`projects/${pid}`)
-        return project
-    }
-    async function fetchApps() {
-        const apps = await get(`apps`)
-        return apps.map(([k, v]) => k)
-    }
-    function launchApp(appId) {
-        get(`launch/${appId}/${pid}`);
-    }
-
 </script>
 <page>
     {#await fetchProject(pid) then project}
