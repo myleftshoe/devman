@@ -1,5 +1,6 @@
 <script>
     import { fetchProject, fetchApps, launchApp } from './api'
+    import Languages from './languages.svelte'
     export let pid = 'lab'
 </script>
 {#await fetchProject(pid) then project}
@@ -21,6 +22,11 @@
                 >
             </a>
             <a href="{project.git}" title="Open me on Github">
+                <img alt="github stats" 
+                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=myleftshoe&layout=compact"
+                >
+            </a>
+            <a href="{project.git}" title="Open me on Github">
                 <img
                     src="https://badgen.net/github/last-commit/micromatch/micromatch"
                     alt="version"
@@ -34,6 +40,7 @@
                     >
                 </a>
             {/each}
+            <Languages languages={project.languages}/>
         </main>
         <footer>
             {#await fetchApps() then apps}

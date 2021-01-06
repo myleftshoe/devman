@@ -19,7 +19,7 @@ class Git {
         return this.git.listRemote(['--get-url'])
     }
     get languages() {
-        const languages = get('https://api.github.com/repos/myleftshoe/vlctv/languages')
+        const languages = get('https://api.github.com/repos/myleftshoe/devman/languages')
         return languages
     }
 
