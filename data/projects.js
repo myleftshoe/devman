@@ -20,10 +20,10 @@ const projects = new Map([
         }
     ],
     [
-        'pm',
+        'devman',
         {
-            id: 'pm',
-            path: fullPath('pm'),
+            id: 'devman',
+            path: fullPath('devman'),
             git: fullGitPath('devman'),
             tags: ['gnome', 'gjs', 'web'],
         }
