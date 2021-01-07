@@ -7,6 +7,9 @@ const projects = require('./data/projects')
 
 const Git = require('./simplegit')
 
+const simpleIcons = require('simple-icons');
+
+
 const app = polka();
 
 app.use(sirv('public', { 
@@ -18,12 +21,29 @@ app.get('/api/projects', (req, res) => {
     res.end(JSON.stringify([...projects]))
 })
 
+
+function getLang(lang) {
+    console.log(lang)
+    const _lang = lang.toLowerCase()
+    return { 
+        html: 'html5',
+        css: 'css3',
+    }[_lang] || _lang
+}
+
+
 app.get('/api/projects/:id', async (req, res) => {
     const { id } = req.params
     const project = projects.get(id)
     const git = new Git(project.path)
     project.remote = await git.remote
     project.languages = await git.languages
+    project.icons = Object.keys(project.languages).reduce((acc, cur) => {
+        const icon = simpleIcons.get(getLang(cur));
+        return { ...acc, [cur]: icon } 
+
+    }, {})
+    console.log(project)
     res.end(JSON.stringify(project))
 })
 

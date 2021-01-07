@@ -22,6 +22,7 @@
 </script>
 {#await fetchProject(pid) then project}
     <page>
+        {console.log(project.icons) || ''}
         <header>
             <h1>{project.id}</h1>
             <!-- <h2>{project.path}</h2> -->
@@ -31,8 +32,13 @@
                 alt="version">
             </a>  -->
             <language-icons>
-                {#each Object.keys(project.languages) as lang}
-                    <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v4/icons/{getLang(lang)}.svg" />
+                {#each Object.entries(project.icons) as [lang, icon]}
+                    {console.log(icon) || ''}
+                    <!-- <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v4/icons/{getLang(lang)}.svg" /> -->
+                    <svg height="32" width="32">
+                        <path d={icon.path}/>
+                    </svg>
+                    <!-- <object title="Arrow Circle" type="image/svg+xml" data={icon.svg}></object> -->
                 {/each}
             </language-icons>
             <a href="{project.git}" title="Open me on Github">
@@ -143,10 +149,13 @@ textarea {
         width: 128px;
     }
     language-icons {
-        margin-botom: -16px;
-        display:flex;
-        justify-content: center;
-        gap: 16px;
+        /* margin-bottom: -16px; */
+        /* display:flex; */
+        /* justify-content: center; */
+        /* gap: 16px; */
+        /* background: #333; */
+        /* border-radius: 8px; */
+        /* padding: 8px; */
     }
 
 </style>
