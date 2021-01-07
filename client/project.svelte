@@ -35,18 +35,21 @@
                 {#each Object.entries(project.icons) as [lang, icon]}
                     {console.log(icon) || ''}
                     <!-- <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v4/icons/{getLang(lang)}.svg" /> -->
-                    <svg height="32" width="32">
-                        <path d={icon.path}/>
+                    <svg height=32 width=64 fill="#333">
+                        {@html icon.svg}
                     </svg>
+                    <!-- <svg height="32" width="32">
+                        <path d={icon.path}/>
+                    </svg> -->
                     <!-- <object title="Arrow Circle" type="image/svg+xml" data={icon.svg}></object> -->
                 {/each}
             </language-icons>
-            <a href="{project.git}" title="Open me on Github">
+            <!-- <a href="{project.git}" title="Open me on Github">
                 <img
                     src="https://badgen.net/github/last-commit/micromatch/micromatch"
                     alt="version"
                 >
-            </a> 
+            </a>  -->
         </header>
         <!-- <a href={project.remote}>{project.remote}</a> -->
         <!-- <Icon/> -->
@@ -54,8 +57,8 @@
             <details>
                 <summary/>
                 <textarea rows=10 bind:value={source}/>
-                </details>
-                {@html marked(source)}
+            </details>
+            {@html marked(source)}
             <!-- <a href="{project.git}" title="Open me on Github">
                 <img alt="github stats" 
                     src="https://github-readme-stats.anuraghazra1.vercel.app/api/pin/?username=myleftshoe&amp;repo=vlctv&amp;theme=material-palenight"
