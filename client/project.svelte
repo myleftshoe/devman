@@ -46,7 +46,7 @@
         <!-- <Icon/> -->
         <main>
             <details>
-                <summary >edit</summary>
+                <summary/>
                 <textarea rows=10 bind:value={source}/>
                 </details>
                 {@html marked(source)}
@@ -85,6 +85,15 @@ details > summary {
     list-style-type: none;
     text-align: right;
     outline: none;
+    cursor: pointer;
+}
+details > summary::after {
+    color: rgb(0,80,160);
+    content: 'EDIT';
+}
+
+details[open] > summary::after {
+    content: 'DONE';
 }
 details > summary::-webkit-details-marker {
     display: none;
