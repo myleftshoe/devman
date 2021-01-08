@@ -1,15 +1,21 @@
 <script>
 	import { onMount } from 'svelte';
-    import { fetchProject, fetchApps, launchApp } from './api'
+    import { fetchProject, fetchApps, launchApp, get, fetchText } from './api'
     import Languages from './languages.svelte'
+    import Markdown from './markdown.svelte'
     import marked from 'marked';
     // import { ZeroMd } from 'zero-md'
+
     export let pid = 'lab'
     // customElements.define('zero-md', ZeroMd)
     // let Icon
     // onMount(async () => {
     //     Icon = (await import('@icons-pack/svelte-simple-icons')).Svelte;
     // })
+
+
+    import Tabs from "./Tabs.svelte";
+
     function getLang(lang) {
         console.log(lang)
         const _lang = lang.toLowerCase()
@@ -19,6 +25,8 @@
         }[_lang] || _lang
     }
     let source = `**This** is my [markdown](https://example.com)`
+    let activeTabValue = 1
+    $: console.log(activeTabValue)
 </script>
 {#await fetchProject(pid) then project}
     <page>
@@ -54,11 +62,30 @@
         <!-- <a href={project.remote}>{project.remote}</a> -->
         <!-- <Icon/> -->
         <main>
+            <Tabs bind:activeTabValue items={project.markdownFiles.map((mdf, i) => ({
+                label: mdf.split('.')[0],
+                value: i + 1,
+                component: Markdown,
+                props: {
+                    content:`This is the content pf ${mdf}`
+                }
+            }))}>
+                {#await fetchText(`readfile/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`) then content}
+                    <Markdown {content}/>
+                {/await}
+            </Tabs>
+
+            <!-- <tabs>
+                {#await get('test2') then mdFiles}
+                    {#each mdFiles as mdf, i}
+                        <div>{mdf}</div>
+                    {/each}
+                {/await}
+            </tabs>
             <details>
                 <summary/>
                 <textarea rows=10 bind:value={source}/>
-            </details>
-            {@html marked(source)}
+            </details> -->
             <!-- <a href="{project.git}" title="Open me on Github">
                 <img alt="github stats" 
                     src="https://github-readme-stats.anuraghazra1.vercel.app/api/pin/?username=myleftshoe&amp;repo=vlctv&amp;theme=material-palenight"
@@ -90,6 +117,15 @@
 {/await}
 
 <style>
+tabs { 
+    display:flex;
+    gap: 32px;
+    font-size: 12px;
+    margin-top: -8px;
+    padding-top: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #0001;
+}
 details > summary {
     list-style-type: none;
     text-align: right;
@@ -134,7 +170,7 @@ textarea {
         display:flex;
         flex-direction: column;
         /* align-items: center; */
-        border: 1px solid #0001;
+        /* border: 1px solid #0001; */
         border-radius:8px;
         margin-left: 20%;
         margin-right: 20%;

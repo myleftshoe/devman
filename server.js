@@ -1,6 +1,8 @@
 const polka = require('polka')
 const sirv = require('sirv')
 const { spawn } = require('child_process')
+const fs = require('fs').promises;
+const path = require('path');
 
 const apps = require('./data/apps')
 const projects = require('./data/projects')
@@ -32,31 +34,29 @@ function getLang(lang) {
 }
 
 
+const byPathDepth = (a,b) => a.split('/').length - b.split('/').length
 
-
-app.get('api/test2', function (req, res) {
-    const fs = require('fs').promises;
-    const path = require('path');
-    const glob = require('glob');
-    
-    glob(__dirname + '/**/*.md', {}, (err, files)=>{
-        const filtered = files.filter(file => !file.includes('node_modules'))
-        const relative = filtered.map(file => path.relative(__dirname, file))
-        const sorted = relative.sort((a,b) => {
-            return (a.split('/').length - b.split('/').length)
-        })
-        res.end(JSON.stringify(sorted))
-    })
+app.get('api/test2', async function (req, res) {
+    const markdownFiles = await getMarkdownFiles()
+    res.end(JSON.stringify(markdownFiles))
 });
 
+async function getMarkdownFiles(basePath = __dirname) {
+    const glob = require('glob');
+    const util = require('util');
+    
+    const globPromise = util.promisify(glob)
+    const files = await globPromise(basePath + '/**/*.md', {})
+    const filtered = files.filter(file => !file.includes('node_modules'))
+    const relative = filtered.map(file => path.relative(basePath, file))
+    const sorted = relative.sort(byPathDepth)
+    return sorted
+}
 
-
-app.get('api/test', function (req, res) {
-    fs.readFile(path.join(__dirname, '/README.md')).then(function(val) {
-        console.log(path.join(__dirname, '/README.md'))
-        console.log(val.toString())
-        res.end(val.toString());
-    });
+app.get('/api/readfile/:filename', async function (req, res) {
+    const filename = decodeURIComponent(req.params.filename)
+    const content = await fs.readFile(`${filename}`)
+    res.end(content.toString());
 });
 
 
@@ -71,6 +71,7 @@ app.get('/api/projects/:id', async (req, res) => {
         return { ...acc, [cur]: icon } 
 
     }, {})
+    project.markdownFiles = await getMarkdownFiles(project.path)
     console.log(project)
     res.end(JSON.stringify(project))
 })
