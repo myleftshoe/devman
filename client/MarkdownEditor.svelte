@@ -6,20 +6,25 @@
     import Markdown from './markdown.svelte'
     import SplitPane from './SplitPane.svelte'
 
+    import { onMount } from 'svelte'
+
+    let content
+    onMount(async () => {
+        content = await fetchText(`readfile/${encodeURIComponent(file)}`)
+    })
     console.log(pid, file)
 </script>
 <main>
-{#await fetchText(`readfile/${encodeURIComponent(file)}`) then content}
+{#if content}
 	<SplitPane type="horizontal">
 		<section slot=a style="border-right:1px solid #000">
             <Markdown {content}/>
 		</section>
         <section slot=b>
-            <textarea>
-                {content}
-            </textarea>
+            <textarea bind:value={content}/>
         </section>
-	</SplitPane>{/await}
+	</SplitPane>
+{/if}
 </main>
 
 <style>
