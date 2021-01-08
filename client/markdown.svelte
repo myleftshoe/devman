@@ -20,8 +20,7 @@
         margin: 0;
     }
     div {
-        padding-left: 40px;
-        padding-right: 40px;
+        padding: 20px 40px;
     }
 </style>
 

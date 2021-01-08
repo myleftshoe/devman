@@ -27,6 +27,7 @@
     "simple-icons": "^4.5.0",
     "sirv-cli": "^1.0.10",
     "svelte-routing": "^1.5.0",
+    "yootils": "^0.0.17",
     "zero-md": "^2.0.1"
   }
 }
