@@ -2,9 +2,6 @@
     export let items = []
     export let activeTabValue = 1
 
-    import { createEventDispatcher } from 'svelte';
-    const dispatch = createEventDispatcher();
-    
     function handleClick(tabValue) {
         activeTabValue = tabValue
     }
