@@ -92,6 +92,7 @@
         width: 128px;
     }
     language-icons {
+        cursor: pointer;
     }
 
 </style>
