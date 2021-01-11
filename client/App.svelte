@@ -1,7 +1,7 @@
 <script>
     import { Router, Route } from 'svelte-routing'
-    import Projects from './projects.svelte'
-    import Project from './project.svelte'
+    import Projects from './Projects.svelte'
+    import Project from './Project.svelte'
     import MarkdownEditor from './MarkdownEditor.svelte'
 </script>
 <Router>

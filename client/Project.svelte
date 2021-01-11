@@ -5,8 +5,8 @@
     import { read } from './store/file'
     import projects from './store/projects'
     import apps from './store/apps'
-    import Languages from './languages.svelte'
-    import Markdown from './markdown.svelte'
+    import Languages from './Languages.svelte'
+    import Markdown from './Markdown.svelte'
     import Tabs from "./Tabs.svelte";
 
     let activeTabValue = 1

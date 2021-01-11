@@ -5,7 +5,7 @@
     import { onMount } from 'svelte'
     import api from './store/api'
     import { read, write } from './store/file'
-    import Markdown from './markdown.svelte'
+    import Markdown from './Markdown.svelte'
     import SplitPane from './SplitPane.svelte'
 
     let content
