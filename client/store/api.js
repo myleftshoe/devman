@@ -1,6 +1,6 @@
-const _get = async (path) => fetch(`/api/${path}`)
-const json = async (path) => (await _get(path)).json()
-const text = async (path) => (await _get(path)).text()
+const fech = async (path) => fetch(`/api/${path}`)
+const json = async (path) => (await fech(path)).json()
+const text = async (path) => (await fech(path)).text()
 
 // return json by default
 const get = json
