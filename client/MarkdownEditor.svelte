@@ -25,29 +25,38 @@
         })
     }
 </script>
-<main>
-{#if content}
-	<SplitPane type="horizontal">
-		<section slot=a style="border-right:1px solid #000">
-            <Markdown {content}/>
-		</section>
-        <section slot=b>
-            <textarea bind:value={content}/>
-        </section>
-	</SplitPane>
-{/if}
-</main>
-<button on:click={save(content)}>SAVE</button>
-
+<page>
+    <header>
+        <strong>{file}</strong>
+        <button on:click={save(content)}>SAVE</button>
+    </header>
+    <main>
+        {#if content}
+            <SplitPane type="horizontal">
+                <section slot=a style="border-right:1px solid #000">
+                    <Markdown {content}/>
+                </section>
+                <section slot=b>
+                    <textarea bind:value={content}/>
+                </section>
+            </SplitPane>
+        {/if}
+    </main>
+</page>
 <style>
+    page { 
+        display:flex;
+        flex-direction: column;
+        height: 100%;
+    }
     main { 
         width: 100%;
         height: 100%;
         display:flex;
-        align-items: strech;
+        /* align-items: stretch; */
     }
     section { 
-        height: 80%;
+        height: 100%;
         background:#f003
     }
     textarea { 
@@ -55,6 +64,11 @@
         width: 100%;
         height: 100%;
         resize: none;
+    }
+    button { 
+        float: right;
+        padding-left: 24px;
+        padding-right: 24px;
     }
     
 </style>

@@ -25,6 +25,11 @@
             value: i + 1,
         }))
     }
+
+    function encodePath(project) {
+        return encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)
+    }
+
 </script>
 
 {#await projects.get(pid) then project}
@@ -41,10 +46,12 @@
         </header>
         <main>
             <Tabs bind:activeTabValue items={tabItemsFromArrayOfFilenames(project.markdownFiles)}>
-                {#await api.get.text(`readfile/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`) then content}
+                <edit>
+                    <a target="_blank" href={`../${project.id}/${encodePath(project)}`}>EDIT</a>
+                </edit>
+                {#await api.get.text(`readfile/${encodePath(project)}`) then content}
                     <Markdown {content}/>
                 {/await}
-                <a href={`../${project.id}/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`}>EDIT</a>
             </Tabs>
         </main>
         <footer>
@@ -96,5 +103,9 @@
     }
     language-icons {
         cursor: pointer;
+    }
+    edit {
+        float: right;
+        padding: 16px 24px;
     }
 </style>
