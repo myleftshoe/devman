@@ -1,11 +1,11 @@
 <script>
-    import { fetchProjects } from './api'
+    import projects from './store/projects'
 </script>
 <header>
     <h1>Projects</h1>
 </header>
 <main>
-    {#await fetchProjects() then projects}
+    {#await projects.get() then projects}
         {#each projects as { id, git }, i}
             {#if git}
                 <a href="project/{id}" title="Open me on Github">

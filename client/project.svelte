@@ -2,7 +2,9 @@
     export let pid = 'lab'
 
 	import { onMount } from 'svelte';
-    import { fetchProject, fetchApps, launchApp, get } from './api'
+    import api from './store/api'
+    import projects from './store/projects'
+    import apps from './store/apps'
     import Languages from './languages.svelte'
     import Markdown from './markdown.svelte'
     import Tabs from "./Tabs.svelte";
@@ -25,7 +27,7 @@
     }
 </script>
 
-{#await fetchProject(pid) then project}
+{#await projects.get(pid) then project}
     <page>
         <header>
             <h1>{project.id}</h1>
@@ -39,15 +41,15 @@
         </header>
         <main>
             <Tabs bind:activeTabValue items={tabItemsFromArrayOfFilenames(project.markdownFiles)}>
-                {#await get.text(`readfile/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`) then content}
+                {#await api.get.text(`readfile/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`) then content}
                     <Markdown {content}/>
                 {/await}
             </Tabs>
         </main>
         <footer>
-            {#await fetchApps() then apps}
-                {#each apps as aid, i}
-                    <button on:click={launchApp(project.id, aid)}><img class="appicon" src="../{aid}.png" alt="Submit"></button>
+            {#await apps.get() then applist}
+                {#each applist as aid, i}
+                    <button on:click={apps.launch(project.id, aid)}><img class="appicon" src="../{aid}.png" alt="Submit"></button>
                 {/each}
             {/await}
         </footer>

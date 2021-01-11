@@ -2,7 +2,7 @@
     export let pid = 'devman'
     export let file = 'none'
 
-    import { get } from './api'
+    import api from './store/api'
     import Markdown from './markdown.svelte'
     import SplitPane from './SplitPane.svelte'
 
@@ -10,7 +10,7 @@
 
     let content
     onMount(async () => {
-        content = await get.text(`readfile/${encodeURIComponent(file)}`)
+        content = await api.get.text(`readfile/${encodeURIComponent(file)}`)
     })
     console.log(pid, file)
 </script>
