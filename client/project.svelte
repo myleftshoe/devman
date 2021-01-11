@@ -2,7 +2,7 @@
     export let pid = 'lab'
 
 	import { onMount } from 'svelte';
-    import { fetchProject, fetchApps, launchApp, get, fetchText } from './api'
+    import { fetchProject, fetchApps, launchApp, get } from './api'
     import Languages from './languages.svelte'
     import Markdown from './markdown.svelte'
     import Tabs from "./Tabs.svelte";
@@ -39,7 +39,7 @@
         </header>
         <main>
             <Tabs bind:activeTabValue items={tabItemsFromArrayOfFilenames(project.markdownFiles)}>
-                {#await fetchText(`readfile/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`) then content}
+                {#await get.text(`readfile/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`) then content}
                     <Markdown {content}/>
                 {/await}
             </Tabs>
@@ -47,7 +47,7 @@
         <footer>
             {#await fetchApps() then apps}
                 {#each apps as aid, i}
-                    <button on:click={() => launchApp(project.pid, aid)}><img class="appicon" src="../{aid}.png" alt="Submit"></button>
+                    <button on:click={launchApp(project.id, aid)}><img class="appicon" src="../{aid}.png" alt="Submit"></button>
                 {/each}
             {/await}
         </footer>

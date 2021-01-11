@@ -1,19 +1,16 @@
-async function get(path) {
-    const res = await fetch(`../api/${path}`)
-    return res.json()
-}
+const _get = async (path) => fetch(`/api/${path}`)
+const _json = async (path) => (await _get(path)).json()
+const _text = async (path) => (await _get(path)).text()
 
-async function fetchText(path) {
-    const res = await fetch(`../api/${path}`)
-    return res.text()
-}
+const get = async (path) => _json(path)
+get.json = (path) => _json(path)
+get.text = (path) => _text(path)
 
 
 async function fetchProjects() {
     const projectsJson = await get(`projects`)
     const projectsMap = new Map(projectsJson)
     const projects = [...projectsMap.values()]
-    console.log(projects)
     return projects
 }
 
@@ -38,5 +35,4 @@ export {
     fetchProject,
     fetchApps,
     launchApp,
-    fetchText
 }
