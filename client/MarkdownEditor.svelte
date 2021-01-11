@@ -1,6 +1,6 @@
 <script>
     export let pid = 'devman'
-    export let file = 'none'
+    export let file = 'none.md'
 
     import api from './store/api'
     import Markdown from './markdown.svelte'
@@ -13,6 +13,17 @@
         content = await api.get.text(`readfile/${encodeURIComponent(file)}`)
     })
     console.log(pid, file)
+
+    function save(content) {
+        console.log(file, content)
+        fetch('../api/writefile', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({file, content}),
+        })
+    }
 </script>
 <main>
 {#if content}
@@ -26,6 +37,7 @@
 	</SplitPane>
 {/if}
 </main>
+<button on:click={save(content)}>SAVE</button>
 
 <style>
     main { 
@@ -35,7 +47,7 @@
         align-items: strech;
     }
     section { 
-        height: 100%;
+        height: 80%;
         background:#f003
     }
     textarea { 

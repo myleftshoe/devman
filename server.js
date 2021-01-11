@@ -55,9 +55,19 @@ async function getMarkdownFiles(basePath = __dirname) {
 
 app.get('/api/readfile/:filename', async function (req, res) {
     const filename = decodeURIComponent(req.params.filename)
-    const content = await fs.readFile(`${filename}`)
+    const content = await fs.readFile(filename)
     res.end(content.toString());
 });
+
+const { json } = require('body-parser');
+
+app.use(json()).post('/api/writefile', async function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    const { file = 'NOFILE.md', content } = req.body
+    await fs.writeFile(file, content, 'utf8')
+    res.end('OK');
+});
+
 
 
 app.get('/api/projects/:id', async (req, res) => {
