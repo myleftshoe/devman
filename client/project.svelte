@@ -44,6 +44,7 @@
                 {#await api.get.text(`readfile/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`) then content}
                     <Markdown {content}/>
                 {/await}
+                <a href={`../${project.id}/${encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)}`}>EDIT</a>
             </Tabs>
         </main>
         <footer>
@@ -96,5 +97,4 @@
     language-icons {
         cursor: pointer;
     }
-
 </style>
