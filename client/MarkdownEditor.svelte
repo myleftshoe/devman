@@ -2,33 +2,27 @@
     export let pid = 'devman'
     export let file = 'none.md'
 
+    import { onMount } from 'svelte'
     import api from './store/api'
+    import { read, write } from './store/file'
     import Markdown from './markdown.svelte'
     import SplitPane from './SplitPane.svelte'
 
-    import { onMount } from 'svelte'
-
     let content
-    onMount(async () => {
-        content = await api.get.text(`readfile/${encodeURIComponent(file)}`)
-    })
-    console.log(pid, file)
-
-    function save(content) {
-        console.log(file, content)
-        fetch('../api/writefile', { 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({file, content}),
-        })
+    
+    async function init() {
+        content = await read(file)
     }
+    
+    onMount(init)
+
+    console.log('Markdown.svelte', pid, file)
+
 </script>
 <page>
     <header>
         <strong>{file}</strong>
-        <button on:click={save(content)}>SAVE</button>
+        <button on:click={write(file, content)}>SAVE</button>
     </header>
     <main>
         {#if content}
