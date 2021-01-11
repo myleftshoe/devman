@@ -1,8 +1,8 @@
 <script>
     export let pid = 'lab'
 
-	import { onMount } from 'svelte';
-    import api from './store/api'
+	import { onMount } from 'svelte'
+    import { read } from './store/file'
     import projects from './store/projects'
     import apps from './store/apps'
     import Languages from './languages.svelte'
@@ -26,8 +26,8 @@
         }))
     }
 
-    function encodePath(project) {
-        return encodeURIComponent(`${project.path}/${project.markdownFiles[activeTabValue - 1]}`)
+    function activeFile(project) {
+        return `${project.path}/${project.markdownFiles[activeTabValue - 1]}`
     }
 
 </script>
@@ -47,9 +47,9 @@
         <main>
             <Tabs bind:activeTabValue items={tabItemsFromArrayOfFilenames(project.markdownFiles)}>
                 <edit>
-                    <a target="_blank" href={`../${project.id}/${encodePath(project)}`}>EDIT</a>
+                    <a target="_blank" href={`/${project.id}/${encodeURIComponent(activeFile(project))}`}>EDIT</a>
                 </edit>
-                {#await api.get.text(`readfile/${encodePath(project)}`) then content}
+                {#await read(activeFile(project)) then content}
                     <Markdown {content}/>
                 {/await}
             </Tabs>

@@ -8,7 +8,7 @@ get.json = json
 get.text = text
 
 
-function post(path, content = { message: "NO CONTENT" }) {
+function post(path, content = {}) {
     fetch(`/api/${path}`, { 
         method: 'POST',
         headers: {
