@@ -3,10 +3,13 @@ const json = async (path) => (await fech(path)).json()
 const text = async (path) => (await fech(path)).text()
 
 // return json by default
-const get = json
+const get = (...args) => json(...args) 
 get.json = json
 get.text = text
 
+console.log('*****************')
+console.dir(json)
+console.dir(get)
 
 function post(path, content = {}) {
     fetch(`/api/${path}`, { 

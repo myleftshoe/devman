@@ -85,6 +85,7 @@
     header { 
         display:flex;
         flex-direction: column;
+        justify-content: flex-start;
         align-items: center;
         gap: 8px;
     }
@@ -94,8 +95,8 @@
     }
     h1 { 
         font-size: 128px;
-        margin-bottom: 0;
-        padding-bottom: 0;
+        margin: 0;
+        padding: 0;
     }
     main {
         flex: 1;
