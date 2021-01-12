@@ -3,7 +3,7 @@ const json = async (path) => (await fech(path)).json()
 const text = async (path) => (await fech(path)).text()
 
 // return json by default
-const get = (...args) => json(...args) 
+const get = (...args) => json(...args)
 get.json = json
 get.text = text
 
